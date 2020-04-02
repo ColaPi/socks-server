@@ -1,0 +1,44 @@
+name: build-image
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: Build image
+        uses: docker/build-push-action@v1
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+          repository: colachen/shadowsocks-kcptun
+          tags: latest
+    #   run: |
+    #     docker build . -t colachen/shadowsocks-server:v`date +%Y%m%d` -t colachen/shadowsocks-server:latest
+    # - name: Push image to dockerhub
+    #   run: |
+    #     docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+    #     docker push colachen/shadowsocks-server:v`date +%Y%m%d`
+    #     docker push colachen/shadowsocks-server:latest
+    #   env:
+    #     DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+    #     DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+
+  test:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: Test docker image
+        run: |
+          docker run --rm colachen/shadowsocks-kcptun ss-redir --help
+          docker run --rm colachen/shadowsocks-kcptun client_linux_amd64 --version
+          docker run --rm colachen/shadowsocks-kcptun server_linux_amd64 --version

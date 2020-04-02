@@ -1,0 +1,13 @@
+version: "3"
+services:
+  shadowsocks-ipv4:
+    restart: always
+    container_name: shadowsocks-client-ipv4
+    image: colachen/shadowsocks-client-x86
+    ports:
+      - "2000:2000"
+    volumes:
+      - ${PWD}/config/supervisord4.conf:/etc/supervisord.conf
+    environment:
+      - PASSWORD=PASSWORD
+      - SERVER=1.2.3.4
