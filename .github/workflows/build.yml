@@ -19,16 +19,6 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
           repository: colachen/shadowsocks-kcptun
           tags: latest
-    #   run: |
-    #     docker build . -t colachen/shadowsocks-server:v`date +%Y%m%d` -t colachen/shadowsocks-server:latest
-    # - name: Push image to dockerhub
-    #   run: |
-    #     docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
-    #     docker push colachen/shadowsocks-server:v`date +%Y%m%d`
-    #     docker push colachen/shadowsocks-server:latest
-    #   env:
-    #     DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-    #     DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
 
   test:
     needs: build
