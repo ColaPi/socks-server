@@ -2,10 +2,12 @@ FROM alpine
 
 ENV SS_VER 3.3.4
 ENV KCP_VER 20200409
+ENV TROJAN_VER 1.15.1
 
 ENV SS_URL https://github.com/shadowsocks/shadowsocks-libev/archive/v$SS_VER.tar.gz
 ENV SS_DIR shadowsocks-libev-$SS_VER
 ENV KCP_URL https://github.com/xtaci/kcptun/releases/download/v${KCP_VER}/kcptun-linux-amd64-${KCP_VER}.tar.gz
+ENV TROJAN_URL https://github.com/trojan-gfw/trojan/releases/download/v${TROJAN_VER}/trojan-${TROJAN_VER}-linux-amd64.tar.xz
 # Build shadowsocks-libev
 RUN set -ex \
     # Build environment setup
@@ -25,6 +27,8 @@ RUN set -ex \
     git \
     # Download kcptun
     && curl -sSL $KCP_URL | tar xz -C /usr/bin/ client_linux_amd64 server_linux_amd64 \
+    # Download trojan
+    && curl -sSL $TROJAN_URL | tar x -C /usr/bin/ trojan \
     # Build & install shadowsocks
     && curl -sSL $SS_URL | tar xz \
     && cd $SS_DIR \
@@ -49,6 +53,7 @@ RUN set -ex \
     && rm -rf /tmp/repo
 
 COPY supervisord.conf /etc/
+COPY trojan_server.json /etc/
 COPY 01-kcptun.conf /etc/sysctl.d/
 
 CMD [ "/usr/bin/supervisord", "-c", "/etc/supervisord.conf" ]
