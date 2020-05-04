@@ -28,7 +28,7 @@ RUN set -ex \
     # Download kcptun
     && curl -sSL $KCP_URL | tar xz -C /usr/bin/ client_linux_amd64 server_linux_amd64 \
     # Download trojan
-    && curl -sSL https://github.com/trojan-gfw/trojan/releases/download/v1.15.1/trojan-1.15.1-linux-amd64.tar.xz | tar -xJf - -C /usr/bin/ --strip 1  trojan \
+    && curl -sSL https://github.com/trojan-gfw/trojan/releases/download/v1.15.1/trojan-1.15.1-linux-amd64.tar.xz | tar -xJf - -C /usr/bin/ --strip 1  trojan/trojan \
     # Build & install shadowsocks
     && curl -sSL $SS_URL | tar xz \
     && cd $SS_DIR \
