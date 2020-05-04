@@ -32,3 +32,4 @@ jobs:
           docker run --rm colachen/shadowsocks-kcptun ss-redir --help
           docker run --rm colachen/shadowsocks-kcptun client_linux_amd64 --version
           docker run --rm colachen/shadowsocks-kcptun server_linux_amd64 --version
+          docker run --rm colachen/shadowsocks-kcptun trojan --version
