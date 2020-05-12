@@ -28,6 +28,7 @@ RUN set -ex \
     # Download kcptun
     && curl -sSL $KCP_URL | tar xz -C /usr/bin/ client_linux_amd64 server_linux_amd64 \
     # Download trojan
+    && mkdir /tmp/repo \
     && wget --no-check-certificate https://github.com/sgerrand/alpine-pkg-glibc/releases/download/2.31-r0/glibc-2.31-r0.apk -P /tmp/repo/ \
     && apk add --repositories-file=/dev/null --allow-untrusted --no-network --no-cache /tmp/repo/glibc-2.31-r0.apk \
     && rm -rf /tmp/repo/glibc-2.31-r0.apk \
