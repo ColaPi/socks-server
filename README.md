@@ -1,6 +1,6 @@
-# shadowsocks-kcptun
+# socks-server
 
-shadowsocks with kcptun. You can use it as server or client based on your configuration.
+socks server with kcptun and trojan-go.
 
 ## quick start
 - `docker-compose up -d` remember to change config firstly.
