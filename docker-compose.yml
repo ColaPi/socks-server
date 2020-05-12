@@ -8,6 +8,7 @@ services:
       - "2000:2000"
     volumes:
       - ${PWD}/config/supervisord4.conf:/etc/supervisord.conf
+      - ${PWD}/config/trojan-go:/etc/trojan-go
     environment:
       - PASSWORD=PASSWORD
       - SERVER=1.2.3.4
