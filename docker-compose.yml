@@ -1,14 +1,40 @@
 version: "3"
 services:
-  shadowsocks-ipv4:
+  socks-server:
+    image: colachen/socks-server
+    container_name: socks-server
     restart: always
-    container_name: shadowsocks-client-ipv4
-    image: colachen/shadowsocks-client-x86
+    cap_add:
+     - net_admin
     ports:
-      - "2000:2000"
+     - 443:443
+     - 6471:6471
+     - 10000:10000/udp
     volumes:
-      - ${PWD}/config/supervisord4.conf:/etc/supervisord.conf
-      - ${PWD}/config/trojan-go:/etc/trojan-go
+     - /home/bot/config/supervisord.conf:/etc/supervisord.conf
+     - /home/bot/config/trojan-go:/etc/trojan-go
+     - /etc/letsencrypt/archive/example.com/fullchain1.pem:/etc/trojan-go/cert.crt
+     - /etc/letsencrypt/archive/example.com/privkey1.pem:/etc/trojan-go/private.key
     environment:
-      - PASSWORD=PASSWORD
-      - SERVER=1.2.3.4
+      - METHOD=aes-256-cfb
+      - PASSWORD=password
+    links:
+      - nginx
+
+  nginx:
+    restart: always
+    container_name: nginx
+    image: nginx
+    ports:
+      - "80:80"
+
+  dnscrypt-proxy-server:
+    container_name: dnscrypt-server
+    restart: always
+    image: jedisct1/dnscrypt-server
+    volumes:
+      - /home/bot/config/dnscrypt-proxy/keys:/opt/dnscrypt-wrapper/etc/keys
+    ports:
+      - "5443:5443/udp"
+      - "5443:5443/tcp"
+    command: init -N example.com -E externalIP:5443
