@@ -1,15 +1,12 @@
 version: "3"
 services:
   socks-server:
-    image: colachen/socks-server
-    container_name: socks-server
     restart: always
-    cap_add:
-     - net_admin
+    container_name: socks-server
+    image: colachen/socks-server
     ports:
-     - 443:443
-     - 6471:6471
-     - 10000:10000/udp
+      - "443:443"
+      - "2000:2000"
     volumes:
      - /home/bot/config/supervisord.conf:/etc/supervisord.conf
      - /home/bot/config/trojan-go:/etc/trojan-go
