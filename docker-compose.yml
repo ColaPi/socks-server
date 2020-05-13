@@ -1,10 +1,11 @@
 version: "3"
 services:
-  shadowsocks-ipv4:
+  socks-server:
     restart: always
-    container_name: shadowsocks-client-ipv4
-    image: colachen/shadowsocks-client-x86
+    container_name: socks-server
+    image: colachen/socks-server
     ports:
+      - "443:443"
       - "2000:2000"
     volumes:
       - ${PWD}/config/supervisord4.conf:/etc/supervisord.conf
