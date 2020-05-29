@@ -2,7 +2,7 @@ FROM alpine
 
 ENV SS_VER 3.3.4
 ENV KCP_VER 20200409
-ENV TROJAN_VER 0.4.11
+ENV TROJAN_VER 0.5.0
 
 ENV SS_URL https://github.com/shadowsocks/shadowsocks-libev/archive/v$SS_VER.tar.gz
 ENV SS_DIR shadowsocks-libev-$SS_VER
