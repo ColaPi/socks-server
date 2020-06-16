@@ -1,6 +1,7 @@
 FROM alpine
 
 ENV SS_VER 3.3.4
+ENV V2RAY_VER 1.3.1
 ENV KCP_VER 20200409
 ENV TROJAN_VER 0.5.0
 
@@ -8,6 +9,7 @@ ENV SS_URL https://github.com/shadowsocks/shadowsocks-libev/archive/v$SS_VER.tar
 ENV SS_DIR shadowsocks-libev-$SS_VER
 ENV KCP_URL https://github.com/xtaci/kcptun/releases/download/v${KCP_VER}/kcptun-linux-amd64-${KCP_VER}.tar.gz
 ENV TROJAN_URL https://github.com/p4gefau1t/trojan-go/releases/download/v${TROJAN_VER}/trojan-go-linux-amd64.zip
+ENV V2RAY_PLUGIN_URL https://github.com/shadowsocks/v2ray-plugin/releases/download/v${V2RAY_VER}/v2ray-plugin-linux-amd64-v${V2RAY_VER}.tar.gz
 # Build shadowsocks-libev
 RUN set -ex \
     # Build environment setup
@@ -27,6 +29,8 @@ RUN set -ex \
     git \
     # Download kcptun
     && curl -sSL $KCP_URL | tar xz -C /usr/bin/ client_linux_amd64 server_linux_amd64 \
+    # Download v2ray plugin
+    && curl -sSL $V2RAY_PLUGIN_URL | tar xz -C /usr/bin/ v2ray-plugin_linux_amd64 \
     # Download trojan
     && mkdir /tmp/repo \
     && wget --no-check-certificate https://github.com/sgerrand/alpine-pkg-glibc/releases/download/2.31-r0/glibc-2.31-r0.apk -P /tmp/repo/ \
