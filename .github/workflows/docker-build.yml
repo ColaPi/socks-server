@@ -32,4 +32,3 @@ jobs:
           docker run --rm colachen/socks-server ss-redir --help
           docker run --rm colachen/socks-server client_linux_amd64 --version
           docker run --rm colachen/socks-server server_linux_amd64 --version
-          docker run --rm colachen/socks-server trojan-go --version
